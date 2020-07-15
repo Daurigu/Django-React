@@ -1,0 +1,76 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col align-self-center">
+    <form action="/new" class='form' method="post">{% csrf_token %}
+      <input type="hidden" value='/' name='next'/>
+      <textarea name="content" class='form-control' placeholder="Tuit Here"></textarea>
+      <button type="submit" class="btn btn-white shadow" >Send</button>
+    </form>
+  </div>
+</div>
+
+<div id="change" class='container'>
+
+
+
+    <p>uenanoshe...</p>
+</div>
+
+
+<script>
+    //get data from allTweets
+    const xhr = new XMLHttpRequest()
+    const method = 'GET'
+    const responseType = 'json'
+
+    function handleLikes(tweet_id, currentCount){
+
+    }
+
+    function likeButton(tweet){
+
+        return '<button class="btn btn-primary" onclick=' + handleLikes(tweet.id, tweet.likes) + '> Like <p>' + tweet.likes + '</p></button>'
+        
+    }
+
+    xhr.responseType=responseType
+    xhr.open(method, '/alltweets')
+    xhr.onload = function(){
+        const serverResponse = xhr.response
+        var items = serverResponse.response
+
+        console.log(xhr.response)
+
+        const change = document.getElementById('change')
+        change.innerHTML = 'changiado'
+        var printList
+        var finalPrint
+        var i
+
+        for(i=0;i<items.length;i++){
+            console.log(items[i])
+            printList = '<div class="m-3 p-2 bg-dark rounded text-white"> <h1> ID: ' + likeButton(items[i]) + '</h1>' + '<p>' + items[i].content + '</p> </div>'
+            finalPrint += printList
+        }
+
+        //MIN 1:34:52
+
+        change.innerHTML = finalPrint
+
+        console.log(xhr.response)
+    }
+    xhr.send()
+
+    // //Manage InnerHTML
+    // const change = document.getElementById('change')
+    // change.innerHTML = 'changiado'
+
+    // const newItems = items.map( (id)=> items.response[id])
+
+    // change.innerHTML = newItems
+
+</script>
+{% endblock content %}
