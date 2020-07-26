@@ -18,7 +18,7 @@ class ActionSerializer(serializers.Serializer):
 class TweetSerializer(serializers.ModelSerializer):
     class Meta:
         model = TweetModel
-        fields = ['content']
+        fields = ['id', 'content']
 
     def validate_content(self, value):
         if len(value) > 240:
